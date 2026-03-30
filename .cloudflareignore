@@ -1,0 +1,25 @@
+# Ignore Python files from build
+*.py
+*.pyc
+__pycache__/
+requirements.txt
+Pipfile
+Pipfile.lock
+pyproject.toml
+setup.py
+*.egg-info/
+
+# Ignose backend directories
+backend/
+api/
+workers/
+migrations/
+
+# Keep only frontend files
+!*.html
+!*.css
+!*.js
+!*.json
+!*.png
+!*.jpg
+!*.svg
