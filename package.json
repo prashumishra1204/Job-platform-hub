@@ -1,0 +1,12 @@
+{
+  "name": "job-platform-hub",
+  "version": "1.0.0",
+  "description": "Static Job Board Platform",
+  "type": "module",
+  "scripts": {
+    "build": "echo 'Static site - no build needed'"
+  },
+  "keywords": ["job", "board", "platform"],
+  "author": "Prashu Mishra",
+  "license": "MIT"
+}
