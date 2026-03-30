@@ -23,3 +23,10 @@ Thumbs.db
 .idea/
 *.swp
 *.swo
+# Check if .gitignore has node_modules
+cat .gitignore | grep node_modules
+
+# If not, add it
+echo "node_modules/" >> .gitignore
+echo "package-lock.json" >> .gitignore
+echo "bun.lockb" >> .gitignore
