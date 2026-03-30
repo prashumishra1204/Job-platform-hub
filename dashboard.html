@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - JobHub</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <i class="fas fa-briefcase"></i>
+                <span>JobHub</span>
+            </div>
+            <div class="nav-menu">
+                <a href="index.html">Home</a>
+                <a href="jobs.html">Browse Jobs</a>
+                <a href="dashboard.html" class="active">Dashboard</a>
+                <a href="post-job.html">Post a Job</a>
+                <div id="auth-buttons">
+                    <a href="login.html" class="btn-login">Login</a>
+                    <a href="register.html" class="btn-register">Register</a>
+                </div>
+                <div id="user-menu" style="display:none;">
+                    <div class="user-dropdown">
+                        <span id="user-name"></span>
+                        <i class="fas fa-chevron-down"></i>
+                        <div class="dropdown-content">
+                            <a href="#" id="logout-btn">Logout</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="dashboard-container">
+        <div class="container">
+            <div id="dashboard-content"></div>
+        </div>
+    </div>
+
+    <script src="js/data.js"></script>
+    <script src="js/auth.js"></script>
+    <script>
+        function loadDashboard() {
+            if (!Auth.requireAuth()) return;
+            
+            const user = Auth.currentUser;
+            const container = document.getElementById('dashboard-content');
+            
+            if (user.role === 'employee') {
+                const applications = Database.getUserApplications(user.id);
+                container.innerHTML = `
+                    <div class="dashboard-header">
+                        <h2>Welcome back, ${user.name}!</h2>
+                        <p>Your job application dashboard</p>
+                    </div>
+                    <div class="dashboard-stats">
+                        <div class="stat-card">
+                            <i class="fas fa-paper-plane"></i>
+                            <h3>${applications.length}</h3>
+                            <p>Applications Sent</p>
+                        </div>
+                    </div>
+                    <h3>Your Applications</h3>
+                    <div class="jobs-grid">
+                        ${applications.map(app => `
+                            <div class="job-card">
+                                <h3>${app.job.title}</h3>
+                                <div class="job-company">${app.job.company}</div>
+                                <div class="job-details">
+                                    <span>${app.job.location}</span>
+                                    <span>${app.job.type}</span>
+                                </div>
+                                <div class="tag">Status: ${app.status}</div>
+                                <small>Applied on: ${new Date(app.appliedAt).toLocaleDateString()}</small>
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+            } else if (user.role === 'employer' || user.role === 'recruiter') {
+                const jobs = Database.getEmployerJobs(user.id);
+                container.innerHTML = `
+                    <div class="dashboard-header">
+                        <h2>Welcome back, ${user.name}!</h2>
+                        <p>Your job postings dashboard</p>
+                    </div>
+                    <div class="dashboard-stats">
+                        <div class="stat-card">
+                            <i class="fas fa-briefcase"></i>
+                            <h3>${jobs.length}</h3>
+                            <p>Active Jobs</p>
+                        </div>
+                    </div>
+                    <h3>Your Job Postings</h3>
+                    <div class="jobs-grid">
+                        ${jobs.map(job => `
+                            <div class="job-card">
+                                <h3>${job.title}</h3>
+                                <div class="job-details">
+                                    <span>${job.location}</span>
+                                    <span>${job.type}</span>
+                                    <span>${job.salary}</span>
+                                </div>
+                                <small>Posted on: ${new Date(job.postedAt).toLocaleDateString()}</small>
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+            }
+        }
+        
+        document.addEventListener('DOMContentLoaded', loadDashboard);
+    </script>
+</body>
+</html>
