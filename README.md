@@ -18,16 +18,81 @@
   <a href="https://github.com/prashumishra1204/Job-platform-hub/pulls">
     <img src="https://img.shields.io/github/issues-pr/prashumishra1204/Job-platform-hub" alt="Pull Requests">
   </a>
+  <img src="https://img.shields.io/badge/HTML-61.8%25-orange" alt="HTML">
+  <img src="https://img.shields.io/badge/Python-38.2%25-blue" alt="Python">
+  <img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg" alt="PRs Welcome">
+  
+  <br><br>
+  <h3>Created with ❤️ by <strong>Prashu Mishra</strong></h3>
+  <p>Full Stack Developer | Job Platform Creator</p>
+  
+  <br>
+  <img src="https://via.placeholder.com/800x400/2563eb/ffffff?text=Job+Platform+Hub+Screenshot" alt="Job Platform Hub Screenshot" width="800">
 </div>
 
 ---
 
-## 📖 About The Project
+## 📑 **Table of Contents**
 
-**Job Platform Hub** is a production-ready job board platform connecting employees, employers, and recruiters.
+| Section | Description |
+|---------|-------------|
+| [About The Project](#-about-the-project) | Project overview and vision |
+| [Current Scope](#-current-scope) | What's working right now (v1.0.0) |
+| [Future Scope](#-future-scope) | Roadmap 2025-2027 |
+| [Infrastructure](#️-infrastructure) | Current and planned infrastructure |
+| [Technology Stack](#-technology-stack) | All technologies used |
+| [Database Integrations](#️-database-integrations) | PostgreSQL, Redis, Elasticsearch |
+| [API Integrations](#-api-integrations) | RESTful API and third-party services |
+| [OAuth Integration](#-oauth-integration-planned) | Social login (Google, LinkedIn, GitHub) |
+| [Multi-Level Architecture](#️-multi-level-architecture-planned) | Microservices design |
+| [Cloud Deployment](#️-cloud-deployment-planned) | AWS multi-cloud strategy |
+| [RabbitMQ Queue System](#-rabbitmq-queue-system-planned) | Message queuing architecture |
+| [Auto Deployment](#-auto-deployment-planned) | CI/CD pipeline with GitHub Actions |
+| [Quick Start](#-quick-start) | Run locally in 2 minutes |
+| [Installation](#-installation) | Detailed setup guide |
+| [Usage](#-usage) | How to use the platform |
+| [Contributing](#-contributing) | How to contribute |
+| [License](#-license) | MIT License |
+| [Contact](#-contact) | Get in touch |
 
 ---
 
+## 📖 **About The Project**
+
+**Job Platform Hub** is a complete, production-ready job board platform that connects **employees**, **employers**, and **recruiters**. Built with modern technologies, it's designed to scale from a simple static site to an enterprise-grade distributed system serving millions of users.
+
+### 🎯 **Vision**
+> *"To create the world's most accessible and intelligent job matching platform that connects the right talent with the right opportunity, regardless of geography or background."*
+
+### ✨ **Core Features (Current)**
+
+| Feature | Status | Description |
+|---------|--------|-------------|
+| 👥 Multi-role System | ✅ Live | Employee, Employer, Recruiter roles |
+| 📝 Job Posting | ✅ Live | Create and publish job listings |
+| 🔍 Advanced Search | ✅ Live | Filter by keyword, location, type |
+| 📊 User Dashboard | ✅ Live | Role-specific personalized views |
+| 💼 Application Tracking | ✅ Live | Monitor application status |
+| 📱 Responsive Design | ✅ Live | Mobile-first approach |
+| 🔐 Authentication | ✅ Live | Secure login/registration |
+| 💾 Local Storage | ✅ Live | Demo data persistence |
+
+---
+
+## 🎯 **Current Scope** *(v1.0.0 - Live Now)*
+
+### ✅ **Fully Implemented Features**
+
+#### **User Management System**
+```javascript
+// Current Capabilities
+✓ Multi-role authentication (Employee/Employer/Recruiter)
+✓ LocalStorage-based user sessions
+✓ Basic profile management
+✓ Role-based access control (RBAC)
+✓ Registration with email validation
+✓ Secure password storage
+✓ Session persistence
 ## 🎯 Current Scope *(v1.0.0 - Live Now)*
 
 ### ✅ Fully Implemented Features
