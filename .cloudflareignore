@@ -1,25 +1,19 @@
-# Ignore Python files from build
+# Python files
 *.py
 *.pyc
+*.bak
 __pycache__/
 requirements.txt
+requirements.txt.bak
+app.py
+app.py.bak
 Pipfile
 Pipfile.lock
-pyproject.toml
-setup.py
-*.egg-info/
 
-# Ignose backend directories
-backend/
-api/
-workers/
-migrations/
+# Environment files
+.env
+.env.bak
+.env.local
 
-# Keep only frontend files
-!*.html
-!*.css
-!*.js
-!*.json
-!*.png
-!*.jpg
-!*.svg
+# Node modules (optional)
+node_modules/
