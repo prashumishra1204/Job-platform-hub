@@ -1,0 +1,27 @@
+# Core Framework
+Flask==2.3.3
+Flask-CORS==4.0.0
+Flask-SQLAlchemy==3.0.5
+Flask-Migrate==4.0.5
+
+# Database Drivers
+psycopg2-binary==2.9.9
+pymysql==1.1.0
+redis==5.0.1
+
+# Authentication & Security
+PyJWT==2.8.0
+bcrypt==4.1.0
+python-dotenv==1.0.0
+
+# Task Queue
+celery==5.3.4
+
+# API Documentation
+flasgger==0.9.7
+
+# File Handling
+Pillow==10.0.1
+
+# Development
+python-dotenv==1.0.0
