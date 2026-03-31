@@ -30,205 +30,195 @@
   <img src="https://via.placeholder.com/800x400/2563eb/ffffff?text=Job+Platform+Hub+Screenshot" alt="Job Platform Hub Screenshot" width="800">
 </div>
 
----
-
-## 📑 **Table of Contents**
-
-| Section | Description |
-|---------|-------------|
-| [About The Project](#-about-the-project) | Project overview and vision |
-| [Current Scope](#-current-scope) | What's working right now (v1.0.0) |
-| [Future Scope](#-future-scope) | Roadmap 2025-2027 |
-| [Infrastructure](#️-infrastructure) | Current and planned infrastructure |
-| [Technology Stack](#-technology-stack) | All technologies used |
-| [Database Integrations](#️-database-integrations) | PostgreSQL, Redis, Elasticsearch |
-| [API Integrations](#-api-integrations) | RESTful API and third-party services |
-| [OAuth Integration](#-oauth-integration-planned) | Social login (Google, LinkedIn, GitHub) |
-| [Multi-Level Architecture](#️-multi-level-architecture-planned) | Microservices design |
-| [Cloud Deployment](#️-cloud-deployment-planned) | AWS multi-cloud strategy |
-| [RabbitMQ Queue System](#-rabbitmq-queue-system-planned) | Message queuing architecture |
-| [Auto Deployment](#-auto-deployment-planned) | CI/CD pipeline with GitHub Actions |
-| [Quick Start](#-quick-start) | Run locally in 2 minutes |
-| [Installation](#-installation) | Detailed setup guide |
-| [Usage](#-usage) | How to use the platform |
-| [Contributing](#-contributing) | How to contribute |
-| [License](#-license) | MIT License |
-| [Contact](#-contact) | Get in touch |
+A scalable job platform connecting job seekers, recruiters, and employers with a modern web interface and evolving cloud-native architecture. The project currently runs with a hybrid setup (static frontend + Flask backend APIs) and is being upgraded toward a fully serverless edge-based system using Cloudflare.
 
 ---
 
-## 📖 **About The Project**
+## 🚀 Live Demo
 
-**Job Platform Hub** is a complete, production-ready job board platform that connects **employees**, **employers**, and **recruiters**. Built with modern technologies, it's designed to scale from a simple static site to an enterprise-grade distributed system serving millions of users.
-
-### 🎯 **Vision**
-> *"To create the world's most accessible and intelligent job matching platform that connects the right talent with the right opportunity, regardless of geography or background."*
-
-### ✨ **Core Features (Current)**
-
-| Feature | Status | Description |
-|---------|--------|-------------|
-| 👥 Multi-role System | ✅ Live | Employee, Employer, Recruiter roles |
-| 📝 Job Posting | ✅ Live | Create and publish job listings |
-| 🔍 Advanced Search | ✅ Live | Filter by keyword, location, type |
-| 📊 User Dashboard | ✅ Live | Role-specific personalized views |
-| 💼 Application Tracking | ✅ Live | Monitor application status |
-| 📱 Responsive Design | ✅ Live | Mobile-first approach |
-| 🔐 Authentication | ✅ Live | Secure login/registration |
-| 💾 Local Storage | ✅ Live | Demo data persistence |
+* GitHub Pages: https://prashumishra1204.github.io/Job-platform-hub/
+* Cloudflare Workers: https://job-platform-hub.prashumishra714.workers.dev/
 
 ---
 
-## 🎯 **Current Scope** *(v1.0.0 - Live Now)*
+## 📌 Features Overview
 
-### ✅ **Fully Implemented Features**
-
-#### **User Management System**
-```javascript
-// Current Capabilities
-✓ Multi-role authentication (Employee/Employer/Recruiter)
-✓ LocalStorage-based user sessions
-✓ Basic profile management
-✓ Role-based access control (RBAC)
-✓ Registration with email validation
-✓ Secure password storage
-✓ Session persistence
-## 🎯 Current Scope *(v1.0.0 - Live Now)*
-
-### ✅ Fully Implemented Features
+| Category        | Live Features (v1.0 - Current)                       | Upcoming Features (v2.0 - Target)                    |
+| --------------- | ---------------------------------------------------- | ---------------------------------------------------- |
+| UI/UX           | Responsive UI, job listings, dashboards              | Modern UI with React + Next.js, SSR/SSG, improved UX |
+| Job Management  | Create, edit, browse jobs                            | Fully dynamic job APIs with optimized queries        |
+| Backend         | Flask-based session API (running)                    | Cloudflare Workers serverless backend                |
+| Database        | LocalStorage + sessionStorage + Flask DB integration | PostgreSQL + Cloudflare D1                           |
+| Authentication  | Session-based authentication                         | JWT + OAuth2 + Cloudflare Access                     |
+| Performance     | CDN delivery via GitHub/Cloudflare                   | Edge caching with KV + global optimization           |
+| File Storage    | Not available                                        | Cloudflare R2 for resume uploads                     |
+| AI Features     | Not available                                        | AI job recommendations & resume matching             |
+| Scalability     | Supports limited users                               | Scalable to 2000+ concurrent users                   |
+| Search & Filter | Keyword + filter system                              | Advanced search with indexing & pagination           |
+| Security        | Basic session security                               | WAF, DDoS protection, rate limiting                  |
+| Monitoring      | Not available                                        | Cloudflare Analytics + Workers metrics               |
+| Notifications   | Not available                                        | Email + WebSockets real-time updates                 |
 
 ---
 
-### 👤 User Management System
+## 🏗️ Architecture Comparison
 
-```javascript
-// Current Capabilities
-✓ Multi-role authentication (Employee/Employer/Recruiter)
-✓ LocalStorage-based user sessions
-✓ Basic profile management
-✓ Role-based access control (RBAC)
-✓ Registration with email validation
-✓ Secure password storage
-✓ Session persistence
+| Component     | Current — v1.0                                 | Target — v2.0                         |
+| ------------- | ---------------------------------------------- | ------------------------------------- |
+| Frontend      | Static HTML5 / CSS3 / JS ES6+                  | React 18 + Next.js 14 (SSR/SSG)       |
+| Backend       | Flask (session-based API)                      | Cloudflare Workers (serverless edge)  |
+| Database      | LocalStorage / SessionStorage + DB integration | PostgreSQL + Cloudflare D1            |
+| Cache         | None                                           | Cloudflare KV (edge cache)            |
+| File Storage  | None                                           | Cloudflare R2                         |
+| Auth          | Session-based                                  | JWT + OAuth2                          |
+| Hosting       | GitHub Pages / Cloudflare Workers              | Cloudflare Pages (production)         |
+| CDN           | Basic CDN                                      | Cloudflare Global Network (200+ PoPs) |
+| Notifications | None                                           | Email + WebSockets                    |
+| CI/CD         | Manual deploy                                  | GitHub Actions → Cloudflare           |
+| Monitoring    | None                                           | Cloudflare Analytics                  |
+| Security      | Basic                                          | WAF + DDoS + Rate Limiting            |
 
-💼 Job Management Features
-| Feature         | Status     | Details                        |
-| --------------- | ---------- | ------------------------------ |
-| Job Posting     | ✅ Complete | Create, edit, publish jobs     |
-| Job Browsing    | ✅ Complete | Browse all available positions |
-| Job Details     | ✅ Complete | View full job descriptions     |
-| Search & Filter | ✅ Complete | By keyword, location, type     |
-| Save Jobs       | ✅ Complete | Bookmark jobs                  |
-| Share Jobs      | ✅ Complete | Social media sharing           |
+---
 
-### 👤 User Management System
+## 🧠 Technology Stack
 
-```javascript
-/*
-========================================
-   🚀 JOB PLATFORM HUB - CORE MODULES
-========================================
-*/
+### Frontend
 
+| Technology             | Version | Purpose               |
+| ---------------------- | ------- | --------------------- |
+| HTML5                  | Latest  | Structure             |
+| CSS3                   | Latest  | Styling & layout      |
+| JavaScript             | ES6+    | Logic & interactivity |
+| Font Awesome           | 6.0     | Icons                 |
+| Google Fonts (Poppins) | Latest  | Typography            |
 
-// ======================================
-// 👤 USER MANAGEMENT SYSTEM
-// ======================================
-const userManagement = [
-  "Multi-role authentication (Employee / Employer / Recruiter)",
-  "LocalStorage-based session handling",
-  "Basic profile management",
-  "Role-Based Access Control (RBAC)",
-  "Email validation on registration",
-  "Secure password handling",
-  "Session persistence"
-];
+---
 
+### Backend & Data
 
-// ======================================
-// 💼 JOB MANAGEMENT FEATURES
-// ======================================
-const jobManagement = [
-  {
-    feature: "Job Posting",
-    status: "Complete",
-    details: "Create, edit, and publish jobs"
-  },
-  {
-    feature: "Job Browsing",
-    status: "Complete",
-    details: "Browse all available positions"
-  },
-  {
-    feature: "Job Details",
-    status: "Complete",
-    details: "View full job descriptions"
-  },
-  {
-    feature: "Search & Filter",
-    status: "Complete",
-    details: "Filter by keyword, location, type"
-  },
-  {
-    feature: "Save Jobs",
-    status: "Complete",
-    details: "Bookmark interesting jobs"
-  },
-  {
-    feature: "Share Jobs",
-    status: "Complete",
-    details: "Social media sharing"
-  }
-];
+| Technology           | Purpose                            |
+| -------------------- | ---------------------------------- |
+| Flask (current)      | Session-based backend API handling |
+| localStorage         | Persistent client-side data        |
+| sessionStorage       | Temporary session data             |
+| PostgreSQL (v2.0)    | Primary relational database        |
+| Cloudflare KV (v2.0) | Edge caching                       |
+| Cloudflare D1 (v2.0) | Edge database                      |
+| Cloudflare R2 (v2.0) | File storage                       |
 
+---
 
-// ======================================
-// 📄 APPLICATION SYSTEM
-// ======================================
-const applicationSystem = [
-  {
-    feature: "Apply for Jobs",
-    status: "Complete",
-    details: "One-click application"
-  },
-  {
-    feature: "Track Applications",
-    status: "Complete",
-    details: "View application status"
-  },
-  {
-    feature: "Application History",
-    status: "Complete",
-    details: "Complete history tracking"
-  },
-  {
-    feature: "Status Updates",
-    status: "Complete",
-    details: "Pending / Reviewed / Rejected"
-  }
-];
+### Development & Deployment
 
+| Tool             | Category        | Purpose            |
+| ---------------- | --------------- | ------------------ |
+| VS Code          | IDE             | Development        |
+| Git              | Version Control | Code management    |
+| GitHub           | Hosting         | Repo & CI trigger  |
+| Chrome DevTools  | Debugging       | Testing            |
+| Wrangler CLI     | Cloudflare      | Deploy Workers     |
+| Cloudflare Pages | Hosting         | Primary deployment |
+| GitHub Pages     | Hosting         | Backup deployment  |
 
-// ======================================
-// 📊 DASHBOARD FEATURES BY ROLE
-// ======================================
-const dashboard = {
-  Employee: [
-    "Browse jobs",
-    "Apply for jobs",
-    "Track applications",
-    "Manage profile"
-  ],
-  Employer: [
-    "Post jobs",
-    "Manage listings",
-    "View applicants",
-    "Company profile management"
-  ],
-  Recruiter: [
-    "Multi-company management",
-    "Client job posting",
-    "Candidate sourcing"
-  ]
-};
-```
+---
+
+## ⚙️ Features Implemented
+
+### 👤 User Management
+
+| Feature                 | Status   | Details                         |
+| ----------------------- | -------- | ------------------------------- |
+| Multi-role Registration | Complete | Employee / Employer / Recruiter |
+| Secure Login / Logout   | Complete | Session-based authentication    |
+| Session Persistence     | Complete | Maintained via storage          |
+| Profile Management      | Complete | Editable user profiles          |
+| Role-Based Access       | Complete | Permission-based system         |
+
+---
+
+### 💼 Job Management
+
+| Feature         | Status   | Details              |
+| --------------- | -------- | -------------------- |
+| Job Posting     | Complete | Create & manage jobs |
+| Job Browsing    | Complete | Paginated UI         |
+| Job Details     | Complete | Full job info        |
+| Search & Filter | Complete | Keyword & filters    |
+| Save Jobs       | Complete | Bookmark feature     |
+| Share Jobs      | Complete | Social sharing       |
+
+---
+
+### 📄 Application System
+
+| Feature              | Status   | Details                   |
+| -------------------- | -------- | ------------------------- |
+| Apply for Jobs       | Complete | One-click apply           |
+| Track Applications   | Complete | Dashboard tracking        |
+| Application History  | Complete | Logs with timestamps      |
+| Status Updates       | Complete | Hiring workflow           |
+| Duplicate Prevention | Complete | No duplicate applications |
+
+---
+
+## 🔐 User Roles & Permissions
+
+| Permission      | Employee | Employer | Recruiter | Admin |
+| --------------- | -------- | -------- | --------- | ----- |
+| Browse Jobs     | Yes      | Yes      | Yes       | Yes   |
+| Apply for Jobs  | Yes      | No       | No        | No    |
+| Save Jobs       | Yes      | No       | No        | No    |
+| Post Jobs       | No       | Yes      | Yes       | Yes   |
+| Edit Jobs       | No       | Yes      | Yes       | Yes   |
+| View Applicants | No       | Yes      | Yes       | Yes   |
+| Update Status   | No       | Yes      | Yes       | Yes   |
+| Analytics       | No       | Yes      | Yes       | Yes   |
+| Manage Users    | No       | No       | No        | Yes   |
+
+---
+
+## ⚡ Performance
+
+* Fast delivery via CDN
+* Optimized frontend assets
+* Session-based backend for faster interactions
+
+---
+
+## 🔒 Current Limitations
+
+* Hybrid architecture (not fully scalable yet)
+* Session-based auth (not production-grade)
+* Limited backend scalability
+
+---
+
+## 🔮 Future Enhancements (v2.0)
+
+* Full serverless backend using Cloudflare Workers
+* PostgreSQL + D1 integration
+* AI-powered job matching
+* Resume parsing & ranking
+* Real-time notifications
+* Edge caching & performance optimization
+* Scalable architecture for 2000+ users
+* Secure JWT authentication
+* CI/CD automation
+
+---
+
+## 🤝 Contributing
+
+Contributions are welcome via pull requests.
+
+---
+
+## 📄 License
+
+MIT License
+
+---
+
+## 👨‍💻 Author
+
+Prashu Mishra
