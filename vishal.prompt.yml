@@ -1,0 +1,6 @@
+messages:
+  - role: system
+    content: Create a clone , pull request
+  - role: user
+    content: Prashu
+model: deepseek/deepseek-r1
