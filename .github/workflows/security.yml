@@ -4,10 +4,11 @@ on:
   push:
     branches: [ main ]
   schedule:
-    - cron: '0 0 * * 0'
+    - cron: '0 0 * * 0'  # Weekly (Sunday)
 
 jobs:
   security:
+    name: Run Security Scans
     runs-on: ubuntu-latest
 
     permissions:
@@ -15,30 +16,35 @@ jobs:
       security-events: write
 
     steps:
+      # 📥 Checkout repository
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # Install Trivy safely (pinned)
+      # 🔐 Install Trivy (safe & stable)
       - name: Install Trivy
         uses: aquasecurity/setup-trivy@v0.1.0
 
-      # Run scan (stable config)
-      - name: Run Trivy Scan
+      # 🔍 Run Trivy scan (filesystem)
+      - name: Run Trivy vulnerability scanner
         run: |
           trivy fs . \
             --format sarif \
             --output trivy-results.sarif \
-            --exit-code 0 \
-            --severity HIGH,CRITICAL
+            --severity HIGH,CRITICAL \
+            --exit-code 0
 
-      # Upload SARIF
-      - name: Upload Trivy results
+      # 📤 Upload results to GitHub Security tab
+      - name: Upload Trivy scan results
         uses: github/codeql-action/upload-sarif@v3
         with:
           sarif_file: trivy-results.sarif
 
-      # Gitleaks (fixed)
-      - name: Run Gitleaks
+      # 🔑 Run Gitleaks (detect secrets)
+      - name: Run Gitleaks scan
         uses: gitleaks/gitleaks-action@v2
         with:
           args: detect --source . --verbose
+
+      # 🧪 Debug (optional - remove later)
+      - name: Debug files (optional)
+        run: ls -la
