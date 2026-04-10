@@ -303,10 +303,10 @@ flowchart LR
 
 | Role | Email | Password |
 |------|-------|----------|
-| 👑 Admin | admin@jobhub.com | admin123 |
-| 💼 Employee | prashumishra714@gmail.com | 123456 |
-| 🏢 Employer | employer@jhasons.com | 123456 |
-| 🤝 Recruiter | recruiter@techagency.com | 123456 |
+| 👑 Admin | admin@jobhub.com | ********* |
+| 💼 Employee | prashumishra714@gmail.com | ********** |
+| 🏢 Employer | employer@jhasons.com | ******** |
+| 🤝 Recruiter | recruiter@techagency.com | ********* |
 
 ---
 
