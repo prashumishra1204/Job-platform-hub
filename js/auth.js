@@ -7,7 +7,7 @@ const Auth = {
     
     login(email,password){ const user=Database.users.find(u=>u.email===email&&u.password===password); if(!user) throw new Error("Invalid credentials!"); this.currentUser=user; localStorage.setItem('currentUser',JSON.stringify(user)); this.updateUI(); return user; },
     
-    logout(){ this.currentUser=null; localStorage.removeItem('currentUser'); this.updateUI(); window.location.href='index.html'; },
+    logout(){ this.currentUser=null; localStorage.removeItem('currentUser'); this.updateUI(); window.location.href='../index.html'; },
     
     updateUI(){ const authBtns=document.getElementById('auth-buttons'); const userMenu=document.getElementById('user-menu'); const userName=document.getElementById('user-name'); if(this.currentUser){ if(authBtns)authBtns.style.display='none'; if(userMenu){userMenu.style.display='block'; if(userName)userName.textContent=this.currentUser.name;} }else{ if(authBtns)authBtns.style.display='flex'; if(userMenu)userMenu.style.display='none'; } },
     
