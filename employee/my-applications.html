@@ -1,0 +1,7 @@
+<!DOCTYPE html>
+<html><head><title>My Applications - JobHub</title><link rel="stylesheet" href="../css/style.css"><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet"></head>
+<body><nav class="navbar"><div class="container"><div class="nav-brand"><i class="fas fa-briefcase"></i><span>JobHub</span></div>
+<div class="nav-menu"><a href="../index.html">Home</a><a href="../jobs.html">Jobs</a><a href="dashboard.html">Dashboard</a><a href="my-applications.html" class="active">My Applications</a><div id="user-menu"><span id="user-name"></span><a href="#" id="logout-btn">Logout</a></div></div></div></nav>
+<div class="container" style="padding:40px 20px"><h1>📝 My Job Applications</h1><div id="apps-list" class="jobs-grid"></div></div>
+<script src="../js/data.js"></script><script src="../js/auth.js"></script>
+<script>Auth.init(); if(!Auth.currentUser||Auth.currentUser.role!=='employee')window.location.href='../login.html'; const apps=Database.getUserApplications(Auth.currentUser.id); const c=document.getElementById('apps-list'); if(apps.length===0)c.innerHTML='<p>No applications yet.</p>'; else c.innerHTML=apps.map(a=>`<div class="job-card"><h3>${a.job?.title}</h3><div>${a.job?.company}</div><div>Status: ${a.status}</div><small>Applied: ${new Date(a.appliedAt).toLocaleDateString()}</small></div>`).join('');</script></body></html>
