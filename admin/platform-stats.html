@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html><head><title>Platform Stats - Admin</title><link rel="stylesheet" href="../css/style.css"><script src="https://cdn.jsdelivr.net/npm/chart.js"></script></head>
+<body><nav class="navbar"><div class="container"><div class="nav-brand"><i class="fas fa-briefcase"></i><span>JobHub</span></div>
+<div class="nav-menu"><a href="../index.html">Home</a><a href="dashboard.html">Dashboard</a><a href="platform-stats.html" class="active">Stats</a><div id="user-menu"><span id="user-name"></span><a href="#" id="logout-btn">Logout</a></div></div></div></nav>
+<div class="container" style="padding:40px 20px"><h1>📊 Platform Analytics</h1>
+<div class="dashboard-stats"><div class="stat-card"><i class="fas fa-users"></i><h3 id="total-users">0</h3><p>Total Users</p></div><div class="stat-card"><i class="fas fa-briefcase"></i><h3 id="total-jobs">0</h3><p>Total Jobs</p></div><div class="stat-card"><i class="fas fa-file-alt"></i><h3 id="total-apps">0</h3><p>Applications</p></div></div>
+<canvas id="roleChart" width="400" height="200"></canvas></div>
+<script src="../js/data.js"></script><script src="../js/auth.js"></script>
+<script>Auth.init(); if(!Auth.currentUser||Auth.currentUser.role!=='admin')window.location.href='../login.html';
+document.getElementById('total-users').textContent=Database.users.length;
+document.getElementById('total-jobs').textContent=Database.jobs.length;
+document.getElementById('total-apps').textContent=Database.applications.length;
+const roles={admin:0,employer:0,recruiter:0,employee:0};
+Database.users.forEach(u=>roles[u.role]=(roles[u.role]||0)+1);
+new Chart(document.getElementById('roleChart'),{type:'bar',data:{labels:['Admin','Employer','Recruiter','Employee'],datasets:[{label:'Users by Role',data:[roles.admin,roles.employer,roles.recruiter,roles.employee],backgroundColor:['#2563eb','#10b981','#f59e0b','#ef4444']}]}});</script></body></html>

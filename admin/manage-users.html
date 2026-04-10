@@ -1,0 +1,9 @@
+<!DOCTYPE html>
+<html><head><title>Manage Users - Admin</title><link rel="stylesheet" href="../css/style.css"></head>
+<body><nav class="navbar"><div class="container"><div class="nav-brand"><i class="fas fa-briefcase"></i><span>JobHub</span></div>
+<div class="nav-menu"><a href="../index.html">Home</a><a href="dashboard.html">Dashboard</a><a href="manage-users.html" class="active">Users</a><div id="user-menu"><span id="user-name"></span><a href="#" id="logout-btn">Logout</a></div></div></div></nav>
+<div class="container" style="padding:40px 20px"><h1>👥 Manage Users</h1><div id="users-list" class="jobs-grid"></div></div>
+<script src="../js/data.js"></script><script src="../js/auth.js"></script>
+<script>Auth.init(); if(!Auth.currentUser||Auth.currentUser.role!=='admin')window.location.href='../login.html'; const users=Database.getAllUsers(); const c=document.getElementById('users-list'); c.innerHTML=users.map(u=>`<div class="job-card"><h3>${u.name}</h3><div>Email: ${u.email}</div><div>Role: <select onchange="updateRole(${u.id},this.value)"><option ${u.role==='admin'?'selected':''}>admin</option><option ${u.role==='employer'?'selected':''}>employer</option><option ${u.role==='recruiter'?'selected':''}>recruiter</option><option ${u.role==='employee'?'selected':''}>employee</option></select></div><button onclick="deleteUser(${u.id})" class="btn-apply" style="background:#ef4444">Delete User</button></div>`).join('');
+function updateRole(userId,newRole){Database.updateUserRole(userId,newRole);alert('Role updated!');location.reload();}
+function deleteUser(userId){if(confirm('Delete this user?')){Database.deleteUser(userId);location.reload();}}</script></body></html>

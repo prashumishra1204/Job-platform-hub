@@ -1,0 +1,8 @@
+<!DOCTYPE html>
+<html><head><title>Manage Jobs - Admin</title><link rel="stylesheet" href="../css/style.css"></head>
+<body><nav class="navbar"><div class="container"><div class="nav-brand"><i class="fas fa-briefcase"></i><span>JobHub</span></div>
+<div class="nav-menu"><a href="../index.html">Home</a><a href="dashboard.html">Dashboard</a><a href="manage-jobs.html" class="active">Jobs</a><div id="user-menu"><span id="user-name"></span><a href="#" id="logout-btn">Logout</a></div></div></div></nav>
+<div class="container" style="padding:40px 20px"><h1>📋 Manage Jobs</h1><div id="jobs-list" class="jobs-grid"></div></div>
+<script src="../js/data.js"></script><script src="../js/auth.js"></script>
+<script>Auth.init(); if(!Auth.currentUser||Auth.currentUser.role!=='admin')window.location.href='../login.html'; const jobs=Database.jobs; const c=document.getElementById('jobs-list'); c.innerHTML=jobs.map(j=>`<div class="job-card"><h3>${j.title}</h3><div>Company: ${j.company}</div><div>Posted by: ${j.postedBy}</div><button onclick="deleteJob(${j.id})" class="btn-apply" style="background:#ef4444">Delete Job</button></div>`).join('');
+function deleteJob(jobId){if(confirm('Delete this job?')){Database.jobs=Database.jobs.filter(j=>j.id!==jobId);Database.save();location.reload();}}</script></body></html>
