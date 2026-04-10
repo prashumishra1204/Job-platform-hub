@@ -1,0 +1,9 @@
+<!DOCTYPE html>
+<html><head><title>Admin Dashboard - JobHub</title><link rel="stylesheet" href="../css/style.css"><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet"></head>
+<body><nav class="navbar"><div class="container"><div class="nav-brand"><i class="fas fa-briefcase"></i><span>JobHub</span></div>
+<div class="nav-menu"><a href="../index.html">Home</a><a href="dashboard.html" class="active">Admin Panel</a><a href="manage-users.html">Users</a><a href="manage-jobs.html">Jobs</a><div id="user-menu"><span id="user-name"></span><a href="#" id="logout-btn">Logout</a></div></div></div></nav>
+<div class="container" style="padding:40px 20px"><h1>👑 Admin Dashboard</h1><p>Platform Control Panel</p>
+<div class="dashboard-stats"><div class="stat-card"><i class="fas fa-users"></i><h3 id="total-users">0</h3><p>Total Users</p></div><div class="stat-card"><i class="fas fa-briefcase"></i><h3 id="total-jobs">0</h3><p>Total Jobs</p></div><div class="stat-card"><i class="fas fa-file-alt"></i><h3 id="total-apps">0</h3><p>Applications</p></div></div>
+<div class="admin-actions"><a href="manage-users.html" class="btn-primary">👥 Manage Users</a><a href="manage-jobs.html" class="btn-primary">📋 Manage Jobs</a><a href="platform-stats.html" class="btn-primary">📊 Platform Stats</a></div></div>
+<script src="../js/data.js"></script><script src="../js/auth.js"></script>
+<script>Auth.init(); if(!Auth.currentUser||Auth.currentUser.role!=='admin')window.location.href='../login.html'; document.getElementById('total-users').textContent=Database.users.length; document.getElementById('total-jobs').textContent=Database.jobs.length; document.getElementById('total-apps').textContent=Database.applications.length;</script></body></html>
