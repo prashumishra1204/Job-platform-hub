@@ -1,20 +1,95 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <script src="js/auth.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recruiter Dashboard - JobHub</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand"><i class="fas fa-briefcase"></i><span>JobHub</span></div>
+            <div class="nav-menu">
+                <a href="../index.html">Home</a>
+                <a href="../jobs.html">Browse Jobs</a>
+                <a href="dashboard.html" class="active">Dashboard</a>
+                <a href="post-job.html">Post a Job</a>
+                <div id="user-menu">
+                    <span id="user-name"></span>
+                    <a href="#" id="logout-btn">Logout</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="dashboard-container">
+        <div class="container">
+            <div class="dashboard-header">
+                <h2>🤝 Welcome, <span id="welcome-name">Recruiter</span>!</h2>
+                <p>Multi-company recruitment platform - Post jobs for your clients</p>
+            </div>
+
+            <div class="dashboard-stats">
+                <div class="stat-card"><i class="fas fa-building"></i><h3 id="client-count">0</h3><p>Active Clients</p></div>
+                <div class="stat-card"><i class="fas fa-briefcase"></i><h3 id="job-count">0</h3><p>Jobs Posted</p></div>
+                <div class="stat-card"><i class="fas fa-user-check"></i><h3 id="placement-count">0</h3><p>Placements</p></div>
+            </div>
+
+            <div style="display: flex; gap: 1rem; justify-content: center; margin: 2rem 0;">
+                <a href="post-job.html" class="btn-primary">➕ Post Job for Client</a>
+                <a href="my-clients.html" class="btn-primary">🏢 Manage Clients</a>
+                <a href="placements.html" class="btn-primary">📊 Track Placements</a>
+            </div>
+
+            <h3>📋 Recent Jobs Posted</h3>
+            <div id="recent-jobs" class="jobs-grid"></div>
+        </div>
+    </div>
+
+    <script src="../js/data.js"></script>
+    <script src="../js/auth.js"></script>
     <script>
         Auth.init();
-        if (!Auth.currentUser) { window.location.href = 'login.html'; }
-        else {
-            const roleUrls = {
-                'admin': 'admin/dashboard.html',
-                'employer': 'employer/dashboard.html',
-                'recruiter': 'recruiter/dashboard.html',
-                'employee': 'employee/dashboard.html'
-            };
-            window.location.href = roleUrls[Auth.currentUser.role] || 'index.html';
+        
+        if (!Auth.currentUser || Auth.currentUser.role !== 'recruiter') {
+            window.location.href = '../login.html';
         }
+        
+        document.getElementById('welcome-name').textContent = Auth.currentUser.name;
+        document.getElementById('user-name').textContent = Auth.currentUser.name;
+        
+        const myJobs = Database.getEmployerJobs(Auth.currentUser.id);
+        document.getElementById('job-count').textContent = myJobs.length;
+        
+        const clients = [...new Set(myJobs.map(job => job.company))];
+        document.getElementById('client-count').textContent = clients.length;
+        
+        let placements = 0;
+        myJobs.forEach(job => {
+            placements += Database.applications.filter(a => a.jobId === job.id && a.status === 'hired').length;
+        });
+        document.getElementById('placement-count').textContent = placements;
+        
+        const container = document.getElementById('recent-jobs');
+        if (myJobs.length === 0) {
+            container.innerHTML = '<p>No jobs posted yet. <a href="post-job.html">Post your first job</a></p>';
+        } else {
+            container.innerHTML = myJobs.slice(0, 6).map(job => `
+                <div class="job-card">
+                    <h3>${job.title}</h3>
+                    <div>${job.company}</div>
+                    <div>📍 ${job.location} | 💰 ${job.salary}</div>
+                    <div>Applications: ${Database.applications.filter(a => a.jobId === job.id).length}</div>
+                </div>
+            `).join('');
+        }
+        
+        document.getElementById('logout-btn').addEventListener('click', (e) => {
+            e.preventDefault();
+            Auth.logout();
+        });
     </script>
-</head>
-<body><p>Redirecting to your dashboard...</p></body>
+</body>
 </html>
