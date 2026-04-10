@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="js/auth.js"></script>
+    <script>
+        Auth.init();
+        if (!Auth.currentUser) { window.location.href = 'login.html'; }
+        else {
+            const roleUrls = {
+                'admin': 'admin/dashboard.html',
+                'employer': 'employer/dashboard.html',
+                'recruiter': 'recruiter/dashboard.html',
+                'employee': 'employee/dashboard.html'
+            };
+            window.location.href = roleUrls[Auth.currentUser.role] || 'index.html';
+        }
+    </script>
+</head>
+<body><p>Redirecting to your dashboard...</p></body>
+</html>
