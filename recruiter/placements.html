@@ -1,0 +1,7 @@
+<!DOCTYPE html>
+<html><head><title>Placements - JobHub</title><link rel="stylesheet" href="../css/style.css"></head>
+<body><nav class="navbar"><div class="container"><div class="nav-brand"><i class="fas fa-briefcase"></i><span>JobHub</span></div>
+<div class="nav-menu"><a href="../index.html">Home</a><a href="../jobs.html">Jobs</a><a href="dashboard.html">Dashboard</a><a href="placements.html" class="active">Placements</a><div id="user-menu"><span id="user-name"></span><a href="#" id="logout-btn">Logout</a></div></div></div></nav>
+<div class="container" style="padding:40px 20px"><h1>📊 Successful Placements</h1><div id="placements-list" class="jobs-grid"></div></div>
+<script src="../js/data.js"></script><script src="../js/auth.js"></script>
+<script>Auth.init(); if(!Auth.currentUser||Auth.currentUser.role!=='recruiter')window.location.href='../login.html'; const jobs=Database.getEmployerJobs(Auth.currentUser.id); const jobIds=jobs.map(j=>j.id); const placements=Database.applications.filter(a=>jobIds.includes(a.jobId)&&a.status==='hired'); const c=document.getElementById('placements-list'); if(placements.length===0)c.innerHTML='<p>No placements yet.</p>'; else c.innerHTML=placements.map(p=>{const job=jobs.find(j=>j.id===p.jobId); const user=Database.users.find(u=>u.id===p.userId); return `<div class="job-card"><h3>${job?.title}</h3><div>Company: ${job?.company}</div><div>Candidate: ${user?.name}</div><div>Status: Hired ✓</div><small>Applied: ${new Date(p.appliedAt).toLocaleDateString()}</small></div>`;}).join('');</script></body></html>
