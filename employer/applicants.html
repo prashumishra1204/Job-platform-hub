@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html><head><title>Applicants - JobHub</title><link rel="stylesheet" href="../css/style.css"></head>
+<body><nav class="navbar"><div class="container"><div class="nav-brand"><i class="fas fa-briefcase"></i><span>JobHub</span></div>
+<div class="nav-menu"><a href="../index.html">Home</a><a href="../jobs.html">Jobs</a><a href="dashboard.html">Dashboard</a><a href="applicants.html" class="active">Applicants</a><div id="user-menu"><span id="user-name"></span><a href="#" id="logout-btn">Logout</a></div></div></div></nav>
+<div class="container" style="padding:40px 20px"><h1>👥 Job Applicants</h1><select id="job-select"><option value="">Select a job</option></select><div id="applicants-list" class="jobs-grid"></div></div>
+<script src="../js/data.js"></script><script src="../js/auth.js"></script>
+<script>Auth.init(); if(!Auth.currentUser||(Auth.currentUser.role!=='employer'&&Auth.currentUser.role!=='recruiter'))window.location.href='../login.html';
+const jobs=Database.getEmployerJobs(Auth.currentUser.id); const jobSelect=document.getElementById('job-select'); jobs.forEach(j=>{const opt=document.createElement('option');opt.value=j.id;opt.textContent=j.title;jobSelect.appendChild(opt);});
+jobSelect.addEventListener('change',()=>{const jobId=parseInt(jobSelect.value); const apps=Database.applications.filter(a=>a.jobId===jobId); const container=document.getElementById('applicants-list'); if(apps.length===0)container.innerHTML='<p>No applicants yet.</p>';
+else{container.innerHTML=apps.map(a=>{const user=Database.users.find(u=>u.id===a.userId); return `<div class="job-card"><h3>${user?.name||'Anonymous'}</h3><div>Email: ${user?.email}</div><div>Status: <select onchange="updateStatus(${a.id},this.value)"><option ${a.status==='pending'?'selected':''}>pending</option><option ${a.status==='reviewed'?'selected':''}>reviewed</option><option ${a.status==='shortlisted'?'selected':''}>shortlisted</option><option ${a.status==='rejected'?'selected':''}>rejected</option><option ${a.status==='hired'?'selected':''}>hired</option></select></div><small>Applied: ${new Date(a.appliedAt).toLocaleDateString()}</small></div>`;}).join('');}});
+function updateStatus(appId,status){const app=Database.applications.find(a=>a.id===appId);if(app){app.status=status;Database.save();alert('Status updated!');location.reload();}}</script></body></html>
