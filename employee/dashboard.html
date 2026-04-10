@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8"><title>Employee Dashboard - JobHub</title><link rel="stylesheet" href="../css/style.css"><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet"></head>
+<body>
+<nav class="navbar"><div class="container"><div class="nav-brand"><i class="fas fa-briefcase"></i><span>JobHub</span></div>
+<div class="nav-menu"><a href="../index.html">Home</a><a href="../jobs.html">Browse Jobs</a><a href="dashboard.html" class="active">Dashboard</a><div id="user-menu"><span id="user-name"></span><a href="#" id="logout-btn">Logout</a></div></div></div></nav>
+<div class="container" style="padding:40px 20px"><h1>👋 Welcome, <span id="welcome-name">Employee</span>!</h1>
+<div class="dashboard-stats"><div class="stat-card"><i class="fas fa-paper-plane"></i><h3 id="app-count">0</h3><p>Applications Sent</p></div>
+<div class="stat-card"><i class="fas fa-clock"></i><h3 id="pending-count">0</h3><p>Pending Reviews</p></div>
+<div class="stat-card"><i class="fas fa-check-circle"></i><h3 id="hired-count">0</h3><p>Hired</p></div></div>
+<h3>📋 Your Applications</h3><div id="applications-list" class="jobs-grid"></div><br><a href="../jobs.html" class="btn-primary">🔍 Browse More Jobs</a></div>
+<script src="../js/data.js"></script><script src="../js/auth.js"></script>
+<script>
+Auth.init(); if(!Auth.currentUser || Auth.currentUser.role !== 'employee'){ window.location.href = '../login.html'; }
+document.getElementById('welcome-name').textContent = Auth.currentUser.name;
+const apps = Database.getUserApplications(Auth.currentUser.id);
+document.getElementById('app-count').textContent = apps.length;
+document.getElementById('pending-count').textContent = apps.filter(a=>a.status==='pending').length;
+document.getElementById('hired-count').textContent = apps.filter(a=>a.status==='hired').length;
+const container = document.getElementById('applications-list');
+if(apps.length===0){ container.innerHTML = '<p>You haven\'t applied for any jobs yet.</p>'; }
+else{ container.innerHTML = apps.map(a=>`<div class="job-card"><h3>${a.job?.title||'Job'}</h3><div>${a.job?.company||'Company'}</div><div>Status: <strong>${a.status}</strong></div><small>Applied: ${new Date(a.appliedAt).toLocaleDateString()}</small></div>`).join(''); }
+</script></body></html>
