@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8"><title>Employer Dashboard - JobHub</title><link rel="stylesheet" href="../css/style.css"><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet"></head>
+<body>
+<nav class="navbar"><div class="container"><div class="nav-brand"><i class="fas fa-briefcase"></i><span>JobHub</span></div>
+<div class="nav-menu"><a href="../index.html">Home</a><a href="../jobs.html">Browse Jobs</a><a href="dashboard.html" class="active">Dashboard</a><a href="post-job.html">Post a Job</a><div id="user-menu"><span id="user-name"></span><a href="#" id="logout-btn">Logout</a></div></div></div></nav>
+<div class="container" style="padding:40px 20px"><h1>🏢 Welcome, <span id="welcome-name">Employer</span>!</h1>
+<div class="dashboard-stats"><div class="stat-card"><i class="fas fa-briefcase"></i><h3 id="job-count">0</h3><p>Active Jobs</p></div>
+<div class="stat-card"><i class="fas fa-users"></i><h3 id="applicant-count">0</h3><p>Total Applicants</p></div></div>
+<h3>📌 Your Job Postings</h3><div id="jobs-list" class="jobs-grid"></div><br><a href="post-job.html" class="btn-primary">➕ Post New Job</a></div>
+<script src="../js/data.js"></script><script src="../js/auth.js"></script>
+<script>
+Auth.init(); if(!Auth.currentUser||(Auth.currentUser.role!=='employer'&&Auth.currentUser.role!=='recruiter'))window.location.href='../login.html';
+document.getElementById('welcome-name').textContent=Auth.currentUser.name;
+const jobs=Database.getEmployerJobs(Auth.currentUser.id);
+document.getElementById('job-count').textContent=jobs.length;
+let totalApps=0; jobs.forEach(j=>{totalApps+=Database.applications.filter(a=>a.jobId===j.id).length;});
+document.getElementById('applicant-count').textContent=totalApps;
+const c=document.getElementById('jobs-list');
+if(jobs.length===0){c.innerHTML='<p>You haven\'t posted any jobs yet.</p>';}
+else{c.innerHTML=jobs.map(j=>`<div class="job-card"><h3>${j.title}</h3><div>${j.location}|${j.type}</div><div>💰${j.salary}</div><div>📊Applications:${Database.applications.filter(a=>a.jobId===j.id).length}</div><a href="my-jobs.html?id=${j.id}" class="btn-apply">Manage</a></div>`).join('');}
+</script></body></html>
